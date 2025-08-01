@@ -30,7 +30,7 @@ test.describe('Reddit Login', () => {
   test('should login successfully', async ({ page }) => {
     const context = await createSession(process.env.PROXY_URL);
 
-    await RedditAuth.login(context, {
+    await RedditAuth.login(page, {
       username,
       password,
       twoFactorSecret: process.env.REDDIT_OTP_SECRET || undefined

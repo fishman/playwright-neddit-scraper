@@ -16,14 +16,13 @@ const SELECTORS = {
 
 export class RedditAuth {
   static async login(
-    context: BrowserContext,
+    page: Page,
     credentials: {
       username: string
       password: string
       twoFactorSecret?: string | undefined
     }
   ): Promise<void> {
-    const page = await context.newPage();
     await page.goto(LOGIN_URL);
     logger.info('Navigated to Reddit login page');
 
