@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { BrowserContext, Page } from '@playwright/test';
 import logger from '../utils/logger';
 import { TOTP } from 'totp-generator';
 
@@ -16,13 +16,14 @@ const SELECTORS = {
 
 export class RedditAuth {
   static async login(
-    page: Page,
+    context: BrowserContext,
     credentials: {
       username: string
       password: string
       twoFactorSecret?: string | undefined
     }
   ): Promise<void> {
+    const page = await context.newPage();
     await page.goto(LOGIN_URL);
     logger.info('Navigated to Reddit login page');
 

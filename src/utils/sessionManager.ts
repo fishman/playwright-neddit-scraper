@@ -1,6 +1,7 @@
 import { chromium, type BrowserContext } from 'playwright';
 import ProxyChain from 'proxy-chain';
 import logger from './logger';
+import { DEVICE_PROFILES, DEFAULT_PROFILE } from '../const/deviceProfiles';
 
 interface Session {
   context: BrowserContext;
@@ -33,8 +34,6 @@ export async function createSession(proxyUrl?: string): Promise<BrowserContext> 
     const newProxyUrl = await ProxyChain.anonymizeProxy(proxyUrl);
     browserOptions.proxy = { server: newProxyUrl };
   }
-
-  import { DEVICE_PROFILES, DEFAULT_PROFILE } from '../const/deviceProfiles';
 
   const browser = await chromium.launch(browserOptions);
 
