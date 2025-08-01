@@ -20,6 +20,9 @@ importers:
       proxy-chain:
         specifier: ^2.5.9
         version: 2.5.9
+      totp-generator:
+        specifier: ^1.0.0
+        version: 1.0.0
     devDependencies:
       '@playwright/test':
         specifier: ^1.54.2
@@ -504,6 +507,9 @@ packages:
   json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
 
+  jssha@3.3.1:
+    resolution: {integrity: sha512-VCMZj12FCFMQYcFLPRm/0lOBbLi8uM2BhXPTqw3U4YAfs4AZfiApOoBLoN8cQE60Z50m1MYMTQVCfgF/KaCVhQ==}
+
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
@@ -668,6 +674,9 @@ packages:
 
   thread-stream@3.1.0:
     resolution: {integrity: sha512-OqyPZ9u96VohAyMfJykzmivOrY2wfMSf3C5TtFJVgN+Hm6aj+voFhlK+kZEIv2FBh1X6Xp3DlnCOfEQ3B2J86A==}
+
+  totp-generator@1.0.0:
+    resolution: {integrity: sha512-Iu/1Lk60/MH8FE+5cDWPiGbwKK1hxzSq+KT9oSqhZ1BEczGIKGcN50bP0WMLiIZKRg7t29iWLxw6f81TICQdoA==}
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
@@ -1104,6 +1113,8 @@ snapshots:
 
   json-stable-stringify-without-jsonify@1.0.1: {}
 
+  jssha@3.3.1: {}
+
   keyv@4.5.4:
     dependencies:
       json-buffer: 3.0.1
@@ -1275,6 +1286,10 @@ snapshots:
   thread-stream@3.1.0:
     dependencies:
       real-require: 0.2.0
+
+  totp-generator@1.0.0:
+    dependencies:
+      jssha: 3.3.1
 
   tslib@2.8.1: {}
 

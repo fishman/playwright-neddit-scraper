@@ -35,11 +35,11 @@ export async function createSession(proxyUrl?: string): Promise<BrowserContext> 
   }
 
   import { DEVICE_PROFILES, DEFAULT_PROFILE } from '../const/deviceProfiles';
-  
+
   const browser = await chromium.launch(browserOptions);
-  
+
   // Select random device profile or use specified one
-  const deviceProfile = process.env.DEVICE_PROFILE 
+  const deviceProfile = process.env.DEVICE_PROFILE
     ? DEVICE_PROFILES.find(p => p.name === process.env.DEVICE_PROFILE) || DEFAULT_PROFILE
     : DEVICE_PROFILES[Math.floor(Math.random() * DEVICE_PROFILES.length)];
 

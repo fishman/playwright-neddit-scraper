@@ -21,7 +21,7 @@ test.describe('Reddit Login', () => {
     await RedditAuth.login(page, {
       username,
       password,
-      twoFactorCode: process.env.REDDIT_2FA_CODE || undefined
+      twoFactorSecret: process.env.REDDIT_OTP_SECRET || undefined
     });
 
     // Verify successful login

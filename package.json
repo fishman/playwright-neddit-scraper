@@ -9,7 +9,7 @@
     "test:debug": "playwright test --debug",
     "test:update": "playwright test --update-snapshots",
     "build": "tsc",
-    "reddit-auth": "node bin/reddit-auth.js"
+    "reddit-auth": "tsx bin/reddit-auth.ts"
   },
   "keywords": [],
   "author": "",
@@ -20,12 +20,13 @@
     "@types/node": "^24.1.0",
     "eslint": "^9.32.0",
     "tsx": "^4.20.3",
-    "typescript": "^5.9.2"
+   "typescript": "^5.9.2"
   },
   "dependencies": {
     "pino": "^9.7.0",
     "pino-pretty": "^13.1.1",
     "playwright": "^1.54.2",
-    "proxy-chain": "^2.5.9"
+    "proxy-chain": "^2.5.9",
+    "totp-generator": "^1.0.0"
   }
 }
