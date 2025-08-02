@@ -1,4 +1,4 @@
-FROM node:22-alpine@sha256:5539840ce9d013fa13e3b9814c9353024be7ac75aca5db6d039504a56c04ea59 AS builder
+FROM node:22-alpine@sha256:5539840ce9d013fa13e3b9814c9353024be7ac75aca5db6d039504a56c04ea59 as builder
 WORKDIR /app
 
 RUN apk add --no-cache git python3 make g++ && \
@@ -13,7 +13,6 @@ RUN pnpm build && pnpm prune --prod
 FROM node:22-alpine@sha256:5539840ce9d013fa13e3b9814c9353024be7ac75aca5db6d039504a56c04ea59
 WORKDIR /app
 
-# Copy only production files from builder
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./
