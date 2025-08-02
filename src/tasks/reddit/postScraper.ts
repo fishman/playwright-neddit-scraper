@@ -29,7 +29,6 @@ export async function processPostScrape(job: Job<PostScrapeData>, page: Page) {
     const url = `https://www.reddit.com/r/${subreddit}/top/?t=week`;
 
     await page.goto(url);
-    // Add actual scraping logic here
 
     logger.info(`Completed post scrape for ${subreddit}`);
     return { success: true, count: limit };

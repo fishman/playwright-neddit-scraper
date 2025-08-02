@@ -2,7 +2,6 @@
   "compilerOptions": {
     "module": "nodenext",
     "target": "es2022",
-    "types": ["proxy-chain"],
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,

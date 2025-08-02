@@ -22,29 +22,31 @@ export async function createSession(proxyUrl?: string): Promise<BrowserContext> 
 
   const browserOptions: Parameters<typeof chromium.launch>[0] = {
     headless: process.env.HEADLESS !== 'false',
-    proxy: proxyUrl ? {
-      server: proxyUrl,
-      bypass: undefined,
-      username: undefined,
-      password: undefined
-    } : undefined
   };
 
-  if (proxyUrl && process.env.PROXY_CHAIN_ENABLED === 'true') {
-    const newProxyUrl = await ProxyChain.anonymizeProxy(proxyUrl);
-    browserOptions.proxy = { server: newProxyUrl };
+  if (proxyUrl) {
+    if (process.env.PROXY_CHAIN_ENABLED === 'true') {
+      const newProxyUrl = await ProxyChain.anonymizeProxy(proxyUrl);
+      browserOptions.proxy = { server: newProxyUrl };
+    } else {
+      browserOptions.proxy = { server: proxyUrl };
+    }
   }
 
   const browser = await chromium.launch(browserOptions);
 
   // Select random device profile or use specified one
-  const deviceProfile = process.env.DEVICE_PROFILE
-    ? DEVICE_PROFILES.find(p => p.name === process.env.DEVICE_PROFILE) || DEFAULT_PROFILE
+  const selectedProfile = process.env.DEVICE_PROFILE
+    ? DEVICE_PROFILES.find(p => p.name === process.env.DEVICE_PROFILE) ?? DEFAULT_PROFILE
     : DEVICE_PROFILES[Math.floor(Math.random() * DEVICE_PROFILES.length)];
 
+  if (!selectedProfile) {
+    throw new Error('No device profile available');
+  }
+
   const context = await browser.newContext({
-    viewport: deviceProfile.viewport,
-    userAgent: deviceProfile.userAgent,
+    viewport: selectedProfile.viewport,
+    userAgent: selectedProfile.userAgent,
     locale: 'en-US'
   });
 
