@@ -4,14 +4,15 @@ import { TOTP } from 'totp-generator';
 
 const LOGIN_URL = 'https://old.reddit.com/login';
 const SELECTORS = {
-  usernameInput: '#login-username',
-  passwordInput: '#login-password',
+  usernameInput: 'faceplate-text-input[name="username"]',
+  passwordInput: 'faceplate-text-input[name="password"]',
   loginButton: 'button.login',
-  twoFactorInput: '#one-time-code-appOtp',
+  twoFactorInput: 'input[name="otp"]',
   userMenu: '[data-testid="user-avatar"]',
-  authFlowManager: 'auth-flow-manager',
+  authFlowModal: 'auth-flow-modal',
   loginForm: 'faceplate-form[id="login"]',
-  loginTab: 'faceplate-tabpanel[pagenames="login_username_and_password"]'
+  loginFormOtp: 'faceplate-form[id="login-app-otp"]',
+  loginTab: 'faceplate-tabpanel[pagenames="login_username_and_password,login_otp_app,login_otp_backup"]'
 };
 
 export class RedditAuth {
@@ -26,33 +27,18 @@ export class RedditAuth {
     await page.goto(LOGIN_URL);
     logger.info('Navigated to Reddit login page');
 
-    await page.waitForSelector('shreddit-app', { state: 'attached' });
+    await page.textContent('shreddit-app:has(auth-flow-manager)');
+
     logger.debug('shreddit-app loaded');
 
-    await page.waitForSelector(SELECTORS.authFlowManager, {
-      state: 'visible',
-      timeout: 15000
-    });
-    logger.debug('auth-flow-manager loaded');
+    await page.locator(SELECTORS.usernameInput).click({ delay: 150 });
+    await page.keyboard.type(credentials.username);
 
-    await page.waitForSelector(SELECTORS.loginForm, {
-      state: 'visible',
-      timeout: 10000
-    });
-    logger.debug('login form loaded');
+    await page.locator(SELECTORS.passwordInput).click();
+    await page.keyboard.type(credentials.password, { delay: 150 });
+    logger.info('Filled login credentials');
 
-    await Promise.all([
-      page.waitForSelector(SELECTORS.usernameInput, { state: 'attached' }),
-      page.waitForSelector(SELECTORS.passwordInput, { state: 'attached' })
-    ]);
-
-    await page.locator(SELECTORS.usernameInput).fill(credentials.username, { timeout: 5000 });
-    await page.locator(SELECTORS.passwordInput).fill(credentials.password, { timeout: 5000 });
-    logger.debug('Filled login credentials');
-
-    const loginButton = page.locator(SELECTORS.loginButton);
-    await loginButton.waitFor({ state: 'visible' });
-    await loginButton.click({ timeout: 5000 });
+    await page.locator(SELECTORS.loginButton).click({ timeout: 1000 });
     logger.debug('Submitted login form');
 
     await Promise.race([
