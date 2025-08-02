@@ -22,10 +22,8 @@ get_latest_sha() {
 update_dockerfile() {
   local node_version="$1"
   local sha256="$2"
-  
-  sed -i \
-    -e "s|FROM node:[0-9]\+-alpine@sha256:[a-f0-9]\+|FROM node:${node_version}-alpine@${sha256}|g" \
-    Dockerfile
+
+  sed -i "s|FROM node:[0-9]\+-alpine@sha256:[a-f0-9]\+\(\*as builder$\)\?|FROM node:${node_version}-alpine@${sha256}\1|g" Dockerfile
 
   echo "✅ Updated Dockerfile to node:${node_version}-alpine@sha256:${sha256}"
 }
