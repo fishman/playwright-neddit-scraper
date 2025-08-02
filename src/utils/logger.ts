@@ -2,6 +2,12 @@ import pino from 'pino';
 
 const logger = pino({
   level: process.env.LOG_LEVEL || 'info',
+  serializers: {
+    job: (job: { id: string; name: string }) => ({
+      id: job.id,
+      name: job.name,
+    }),
+  },
   transport: {
     targets: [
       {
