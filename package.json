@@ -10,7 +10,8 @@
     "test:debug": "playwright test --debug",
     "test:update": "playwright test --update-snapshots",
     "build": "tsc",
-    "reddit-auth": "tsx bin/reddit-auth.ts"
+    "reddit-auth": "tsx bin/reddit-auth.ts",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
