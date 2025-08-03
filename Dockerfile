@@ -21,4 +21,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
   CMD node -e "require('bullmq').createClient({ connection: { host: process.env.REDIS_HOST } }).ping().then(() => process.exit(0)).catch(() => process.exit(1))"
 
 USER node
-CMD ["node", "--enable-source-maps", "dist/workers/redditWorker.js"]
+CMD ["node", "--enable-source-maps", "dist/src/workers/redditWorker.js"]
