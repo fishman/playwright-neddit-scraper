@@ -5,12 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
-    "check-env": "tsx scripts/checkEnv.ts",
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
     "test:update": "playwright test --update-snapshots",
     "build": "tsc",
-    "reddit-auth": "tsx bin/reddit-auth.ts",
     "lint": "eslint ."
   },
   "keywords": [],
@@ -19,6 +17,7 @@
   "packageManager": "pnpm@10.13.1",
   "devDependencies": {
     "@playwright/test": "^1.54.2",
+    "@types/dotenv": "^8.2.3",
     "@types/node": "^24.1.0",
     "eslint": "^9.32.0",
     "tsx": "^4.20.3",
@@ -26,11 +25,13 @@
   },
   "dependencies": {
     "bullmq": "^5.56.9",
+    "dotenv": "^17.2.1",
     "ioredis": "^5.7.0",
     "pino": "^9.7.0",
     "pino-pretty": "^13.1.1",
     "playwright": "^1.54.2",
     "proxy-chain": "^2.5.9",
-    "totp-generator": "^1.0.0"
+    "totp-generator": "^1.0.0",
+    "zod": "^4.0.14"
   }
 }

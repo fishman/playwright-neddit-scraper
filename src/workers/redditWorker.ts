@@ -27,9 +27,9 @@ async function createAuthenticatedSession(): Promise<WorkerSession> {
 
   try {
     await RedditAuth.login(page, {
-      username: process.env.REDDIT_USERNAME!,
-      password: process.env.REDDIT_PASSWORD!,
-      twoFactorSecret: process.env.REDDIT_OTP_SECRET
+      username: config.REDDIT_USERNAME,
+      password: config.REDDIT_PASSWORD,
+      twoFactorSecret: config.REDDIT_OTP_SECRET
     });
 
     return {
